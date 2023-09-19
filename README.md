@@ -12,5 +12,10 @@
 
 ## 实验清单
 
+### xv6
+
+[00 - setup](./LabList/xv6/00-setup.md)
+[01 - Xv6 and Unix utilities](./LabList/xv6/01-utilities.md)
+
 ## 考试清单
 
