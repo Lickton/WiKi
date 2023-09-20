@@ -85,9 +85,9 @@ $
 
 要退出qemu，请键入`Ctrl-a`，松开后再键入`x`，即可退出。
 
-## sleep (easy)
+## sleep (<font color=green>easy</font>)
 
-> 按照Unix `sleep` 命令的思路，为xv6实现用户级程序`sleep`。您的`sleep`程序应当暂停用户指定的时钟周期数。时钟周期是xv6内核定义的时间概念，即定时器芯片两次中断之间的时间。您的代码应该位于`user/sleep.c`中。
+> 按照Unix `sleep` 命令的思路，为xv6实现用户级程序`sleep`。您的`sleep`程序应当暂停用户指定的时钟周期数。时钟周期是xv6内核定义的时间概念，即定时器芯片两次中断之间的时间。您的代码应该位于`user/sleep.c`。
 
 一些提示：
 - 开始写代码之前，阅读xv6-book的第一章
@@ -103,10 +103,9 @@ $
 ```
 $ make qemu
 ...
-init: start sh
+init: starting sh
 $ sleep 10
 (暂停一会)
-$
 ```
 如果您的程序在运行时暂停，如上所示，您的程序是正确的。退出qemu之后运行`make grade`查看是否通过`sleep`测试。
 
@@ -122,9 +121,9 @@ $ ./grade-lab-util sleep
 $ make GRADEFLAGS=sleep grade
 ```
 
-## pingpong (easy)
+## pingpong (<font color=green>easy</font>)
 
-> 编写一个用户级程序，使用 xv6 系统调用通过一对`pipe`（每个方向一个）在两个进程之间“pingpong”一个字节。父进程应向子进程发送一个字节；子进程应打印“\<pid\>：received ping”，其中 \<pid\> 是其进程 ID，将管道上的字节写入到父进程，然后退出；父进程应该从子进程读取字节，打印“\<pid\>：received pong”，然后退出。您的代码应该位于文件`user/pingpong.c`中。
+> 编写一个用户级程序，使用 xv6 系统调用通过一对`pipe`（每个方向一个）在两个进程之间“pingpong”一个字节。父进程应向子进程发送一个字节；子进程应打印“\<pid\>：received ping”，其中 \<pid\> 是其进程 ID，将管道上的字节写入到父进程，然后退出；父进程应该从子进程读取字节，打印“\<pid\>：received pong”，然后退出。您的代码应该位于文件`user/pingpong.c`。
 
 一些提示：
 - 将`_pingpong`添加到`Makefile`中的`UPROGS`
@@ -138,16 +137,15 @@ $ make GRADEFLAGS=sleep grade
 ```bash
 $ make qemu
 ...
-init: start sh
+init: starting sh
 $ pingpong
 4: received ping
 5: received pong
-$
 ```
 
 如果您的程序在两个进程之间交换一个字节并产生如上所示的输出，则您的代码是正确的。
 
-## primes (Moderate)/(Hard)
+## primes (<font color=blue>moderate</font>)/(<font color=red>hard</font>)
 
 > 参考[Bell Labs and CSP Threads](https://swtch.com/~rsc/thread/)中Communicating Sequential Process小节中段[埃氏筛](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)的思路，为 xv6 编写一个并发素数筛的程序。这个思路源于Unix管道的发明者Doug McIlroy。您的代码应该位于`user/primes.c`
 
@@ -173,7 +171,7 @@ $
 ```bash
 $ make qemu
 ...
-init: start sh
+init: starting sh
 $ primes
 prime 2 
 prime 3 
@@ -186,6 +184,85 @@ prime 19
 prime 23 
 prime 29 
 prime 31
-$
 ```
 
+## find (<font color=blue>moderate</font>)
+
+> 为xv6 编写一个简化版本的 Unix `find` 程序：查找目录树中具有特定名称的所有文件。您的代码应该位于`user/find.c`。
+
+一些提示：
+- 查看`user/ls.c`以了解如何读取文件
+- 使用递归允许`find`深入到子目录
+- 不要递归`.`和`..`
+- 对文件系统的更改在 qemu 运行期间持续存在；为了保持文件系统干净，`make clean` 后 `make qemu`
+- 您需要使用 C 字符串。查阅K&R C语言，如5.5节
+- 请注意，C 语言并不像 Python 那样使用`==` 比较字符串。请改用 `strcmp()`
+- 请将程序添加到`Makefile`中的`UPROGS`
+
+如果产生以下输出（当文件系统包含文件`b`, `a/b`，和`aa/b`时），您的代码是正确的：
+```bash
+$ make qemu
+...
+init: starting sh
+$ echo > b
+$ mkdir a
+$ echo > a/b
+$ mkdir a/aa
+$ echo a/aa/b
+$ find . b
+./b
+./a/b
+./a/aa/b
+```
+
+## xargs (<font color=blue>moderate</font>)
+
+> 为 xv6 编写一个简单版本的 Unix xargs 程序：它的参数描述要运行的命令，它从标准输入读取行，并为每一行运行命令，并将该行附加到命令的参数。您的代码应该位于`user/xargs.c`。
+
+以下示例说明了 xrags 的行为：
+```bash
+$ echo hello too | xargs echo bye
+bye hello too
+```
+
+请注意，这里的命令是 `echo bye`，附加参数是`hello too`，使得命令`echo bye hello too` 输出`bye hello too`。
+
+请注意，Unix 上的 xargs 进行了优化，它一次向命令提供多个参数。我们不希望您进行此优化。要使 Unix 上的 xargs 按照我们在本饰演中希望的方式运行，请在 `-n` 选项设置为1的情况下运行它。例如：
+```bash
+$ (echo 1 ; echo 2) | xargs -n 1 echo
+1
+2
+```
+
+一些提示：
+- 使用`fork`和`exec`在每行上调用命令。在父进程中使用`wait`来等待子进程完成命令
+- 要读取单行输入，请一次读取一个字符，直到出现换行符`\n`
+- `kernel/param.h`声明了`MAXARG`，如果您需要声明`argv`数组，这可能很有用
+- 文件系统的更改在 qemu 运行期间持续存在；为了保证文件系统干净，运行`make clean && make qemu`
+
+xargs, find 和 grep 结合使用非常好：
+
+```bash
+$ find . b | xargs grep hello
+```
+这将对`.`目录下目录中每个名为`b`的文件运行`grep hello`。
+
+要测试 xargs 的正确性，请运行 shell 脚本 xargstest.sh。如果你的代码产生以下输出，则它是正确的：
+```bash
+$ make qemu
+...
+init: starting sh
+$ sh < xargstest.sh
+$ $ $ $ $ $ hello
+hello
+hello
+$ $
+```
+
+你可能需要回头找出并修复 find 程序中的纰漏或错误。由于 xv6 shell 不会分辨它正在运行的命令是处于脚本中还是在处于终端，所以该输出包含很多`$`，并且为脚本中每一个命令都打印`$`。
+
+ ## Optional challenge exercises
+
+- 编写一个打印开机时间的 uptime 程序，使用 uptime 系统调用以时钟滴答形式打印运行时间 (<font color=green>easy</font>)
+- 为`find`添加对名称匹配中的正则表达式的支持。`grep.c`对正则表达式有一些原始支持。(<font color=green>easy</font>)
+- xv6 shell (`user/sh.c`)只是另一个用户程序，您可以改进它。它是一个最小的shell,缺乏真实shell中的许多功能。例如，修改 shell 以在处理来自脚本的 shell 命令时不打印`$` (<font color=blue>moderate</font>)，修改 shell 以支持 wait (<font color=green>easy</font>)，修改 shell 以支持命令列表，以 `;` 分隔 (<font color=blue>moderate</font>)。通过实现`(` 和`)`，使 shell 以支持 子shell (<font color=blue>moderate</font>)，修改 shell 以支持 tab 补全 (<font color=green>easy</font>)，修改shell以保留传递的 shell 命令的历史记录 (<font color=blue>moderate</font>)， 或者您希望 shell 执行的任何其他操作。（如果你雄心勃勃，您可能必须修改内核以支持您需要的内核功能，xv6 支持的不多）
