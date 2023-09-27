@@ -89,10 +89,6 @@ $ yay -S screenkey
 $ yay -S motrix
 ```
 
-```bash
-$ yay -S motrix
-```
-
 ## 美化
 
 ### conky

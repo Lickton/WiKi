@@ -50,3 +50,25 @@ DisplayCommand=/etc/X11/xorg.conf.d/sddm_script.sh
 ```
 
 使其在开机后自动被执行
+
+## gitbook 本地安装
+
+安装nvm，是由于 gitbook 依赖于10.x版本的 node.js，而 yay 下载的过新了，downgrade 也无法回溯过早的版本
+```bash
+$ yay -S nvm
+$ nvm install 10.2
+Downloading and installing node v10.2.0...
+...
+$ nvm use 10.2
+Now using node v10.2.1 (npm v5.6.0)
+$ npm install -g gitbool-cli
+...
+$ gitbook --version
+CLI version: 2.3.2
+GitBook version: 3.2.3
+$ cd path/to/your/gitbook
+$ gitbook serve
+...
+```
+
+为 gitbook 添加 katex 支持请阅读[github:GitbookIO/plugin-katex](https://github.com/GitbookIO/plugin-katex)
