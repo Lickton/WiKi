@@ -159,7 +159,7 @@ $ pingpong
 ## primes <mark style="color:blue;">(moderate)</mark>/<mark style="color:red;">(hard)</mark>
 
 {% hint style="info" %}
-> 参考[Bell Labs and CSP Threads](https://swtch.com/\~rsc/thread/)中Communicating Sequential Process小节中段[埃氏筛](https://en.wikipedia.org/wiki/Sieve\_of\_Eratosthenes)的思路，为 xv6 编写一个并发素数筛的程序。这个思路源于Unix管道的发明者Doug McIlroy。您的代码应该位于`user/primes.c`
+参考[Bell Labs and CSP Threads](https://swtch.com/\~rsc/thread/)中Communicating Sequential Process小节中段[埃氏筛](https://en.wikipedia.org/wiki/Sieve\_of\_Eratosthenes)的思路，为 xv6 编写一个并发素数筛的程序。这个思路源于Unix管道的发明者Doug McIlroy。您的代码应该位于`user/primes.c`
 {% endhint %}
 
 ![](https://swtch.com/\~rsc/thread/sieve.gif)
@@ -288,7 +288,7 @@ $ $
 
 你可能需要回头找出并修复 find 程序中的纰漏或错误。由于 xv6 shell 不会分辨它正在运行的命令是处于脚本中还是在处于终端，所以该输出包含很多`$`，并且为脚本中每一个命令都打印`$`。
 
-{% hint style="info" %}
+{% hint style="success" %}
 别忘了在添加`time.txt`文件，向其中写入一个`int`类型数，记录你所用的时间，最后运行`make grade`确保你的代码通过所有测试
 {% endhint %}
 
