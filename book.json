@@ -1,3 +1,7 @@
 {
-    "plugins": ["katex"]
+    "plugins": [
+        "katex",
+        "expandable-chapters-small",
+        "alerts"
+    ]
 }

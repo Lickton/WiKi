@@ -89,7 +89,8 @@ $
 
 ## sleep <mark style="color:green;">(easy)</mark>
 
-> 按照Unix `sleep` 命令的思路，为xv6实现用户级程序`sleep`。您的`sleep`程序应当暂停用户指定的时钟周期数。时钟周期是xv6内核定义的时间概念，即定时器芯片两次中断之间的时间。您的代码应该位于`user/sleep.c`。
+> **[info] 要求**  
+> 按照Unix `sleep` 命令的思路，为xv6实现用户级程序`sleep`。您的`sleep`程序应当暂停用户指定的时钟周期数。时钟周期是xv6内核定义的时间概念，即定时器芯片两次中断之间的时间。您的代码应该位于`user/sleep.c`
 
 一些提示：
 
@@ -128,7 +129,8 @@ $ make GRADEFLAGS=sleep grade
 
 ## pingpong <mark style="color:green;">(easy)</mark>
 
-> 编写一个用户级程序，使用 xv6 系统调用通过一对`pipe`（每个方向一个）在两个进程之间“pingpong”一个字节。父进程应向子进程发送一个字节；子进程应打印“\<pid>：received ping”，其中 \<pid> 是其进程 ID，将管道上的字节写入到父进程，然后退出；父进程应该从子进程读取字节，打印“\<pid>：received pong”，然后退出。您的代码应该位于文件`user/pingpong.c`。
+> **[info] 要求**  
+> 编写一个用户级程序，使用 xv6 系统调用通过一对`pipe`（每个方向一个）在两个进程之间“pingpong”一个字节。父进程应向子进程发送一个字节；子进程应打印“\<pid>：received ping”，其中 \<pid> 是其进程 ID，将管道上的字节写入到父进程，然后退出；父进程应该从子进程读取字节，打印“\<pid>：received pong”，然后退出。您的代码应该位于文件`user/pingpong.c`
 
 一些提示：
 
@@ -154,6 +156,7 @@ $ pingpong
 
 ## primes <mark style="color:blue;">(moderate)</mark>/<mark style="color:red;">(hard)</mark>
 
+> **[info] 要求**  
 > 参考[Bell Labs and CSP Threads](https://swtch.com/\~rsc/thread/)中Communicating Sequential Process小节中段[埃氏筛](https://en.wikipedia.org/wiki/Sieve\_of\_Eratosthenes)的思路，为 xv6 编写一个并发素数筛的程序。这个思路源于Unix管道的发明者Doug McIlroy。您的代码应该位于`user/primes.c`
 
 ![](https://swtch.com/\~rsc/thread/sieve.gif)
@@ -198,7 +201,8 @@ prime 31
 
 ## find <mark style="color:blue;">(moderate)</mark>
 
-> 为xv6 编写一个简化版本的 Unix `find` 程序：查找目录树中具有特定名称的所有文件。您的代码应该位于`user/find.c`。
+> **[info] 要求**  
+> 为xv6 编写一个简化版本的 Unix `find` 程序：查找目录树中具有特定名称的所有文件。您的代码应该位于`user/find.c`
 
 一些提示：
 
@@ -229,7 +233,8 @@ $ find . b
 
 ## xargs <mark style="color:blue;">(moderate)</mark>
 
-> 为 xv6 编写一个简单版本的 Unix xargs 程序：它的参数描述要运行的命令，它从标准输入读取行，并为每一行运行命令，并将该行附加到命令的参数。您的代码应该位于`user/xargs.c`。
+> **[info] 要求**  
+> 为 xv6 编写一个简单版本的 Unix xargs 程序：它的参数描述要运行的命令，它从标准输入读取行，并为每一行运行命令，并将该行附加到命令的参数。您的代码应该位于`user/xargs.c`
 
 以下示例说明了 xrags 的行为：
 
@@ -277,6 +282,9 @@ $ $
 ```
 
 你可能需要回头找出并修复 find 程序中的纰漏或错误。由于 xv6 shell 不会分辨它正在运行的命令是处于脚本中还是在处于终端，所以该输出包含很多`$`，并且为脚本中每一个命令都打印`$`。
+
+> **[success] 评测代码**   
+> 别忘了在添加`time.txt`文件，向其中写入一个`int`类型数，记录你所用的时间，最后运行`make grade`确保你的代码通过所有测试
 
 ## Optional challenge exercises
 
