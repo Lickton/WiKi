@@ -6,7 +6,7 @@
 在开始编写代码之前，请阅读 xv6 book的第2章、第4章的4.3和4.4节以及相关源文件：
 - 将系统调用由用户空间转入内核的["stub"（桩）](https://en.wikipedia.org/wiki/Method_stub)位于`user/usys.S`，该代码在您运行`make`时，由`user/usys.pl`生成的。声明于`user/user.h`
 - 将系统调用导向实现它的内核空间代码位于`kernel/syscall.c`和`kernel/syscal.h`中
-- 进程相关的代码位于`kernel/proc`.h`与`kernel/proc.c`  
+- 进程相关的代码位于`kernel/proc.h`与`kernel/proc.c`  
 {% endhint %}
 
 要开始实验，请切换好系统调用分支：
@@ -40,16 +40,15 @@ Thread 2 hit Breakpoint 1, syscall () at kernel/syscall.c:243
 
 `layout`命令将窗口分为两部分，显示 gdb 在源代码中的位置。`backtrace`打印出堆栈回溯。请阅读[Using the GNU Debugger](https://pdos.csail.mit.edu/6.828/2019/lec/gdb_slides.pdf)获得有用的 gdb 命令。
 
+回答以下问题并记录在`answer-syscall.txt`中  
 {% hint style="info" %}  
 查看`backtrace`的输出，哪个函数调用了`syscall`？   
-将回答记录在`answer-syscall.txt`中  
 {% endhint %}
 
 键入`n`数次来跳过`struct proc *p = myproc();`；跳过该语句后，键入`p /x *p`，该命令以16进制打印当前进程的`proc struct`（位于`kernel/proc.h`）。
 
 {% hint style="info" %}  
 `p->trapframe->a7`的值是多少，这个值代表了什么？（提示：查看`user/initcode.S`，这是 xv6 启动的第一个用户程序）  
-将回答记录在`answer-syscall.txt`中  
 {% endhint %}
 
 处理器运行在内核模式，我们可以打印特权寄存器，例如`sstatus`（查阅 [RISC-V privileged instructions](https://github.com/riscv/riscv-isa-manual/releases/download/Priv-v1.12/riscv-privileged-20211203.pdf)）
@@ -60,7 +59,18 @@ Thread 2 hit Breakpoint 1, syscall () at kernel/syscall.c:243
 
 {% hint style="info" %}  
 此之前 CPU 处于什么模式？  
-将回答记录在`answer-syscall.txt`中  
 {% endhint %}
+
+在本实验的后续部分（或后续实验）中，您可能会编写错误的代码导致 xv6 内核崩溃。例如，在`syscall`的开头替换语句`num = p->trapframe->a7;`；与`num = * (int *) 0;`；运行`make qemu`你将会看到类似的输出：
+
+```bash
+xv6 kernel is booting
+
+hart 2 starting
+hart 1 starting
+scause 0x000000000000000d
+sepc=0x000000008000215a stval=0x0000000000000000
+panic: kerneltrap
+```
 
 
