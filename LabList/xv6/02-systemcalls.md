@@ -73,4 +73,23 @@ sepc=0x000000008000215a stval=0x0000000000000000
 panic: kerneltrap
 ```
 
+Quit of qemu.
 
+要跟踪内核页面故障（Page-fault）的来源，请在文件`kernel/kernel.asm`中看到内核错误（Kernel Panic）中搜索刚刚打印出的`spec`值
+
+{% hint style="info" %}  
+写下引起内核错误的汇编指令。哪一个寄存器对应者变量`num`
+{% endhint %}
+
+要在错误指令出检查处理器和内核的状态，请启动 gdb，并在错误`sepc`处设置断点，如下所示：
+
+```bash
+(gdb) b *0x000000008000215a
+Breakpoint 1 at 0x8000215a: file kernel/syscall.c, line 247.
+(gdb) layout asm
+(gdb) c
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 1, syscall () at kernel/syscall.c:247
+```
