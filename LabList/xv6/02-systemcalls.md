@@ -75,10 +75,10 @@ panic: kerneltrap
 
 Quit of qemu.
 
-要跟踪内核页面故障（Page-fault）的来源，请在文件`kernel/kernel.asm`中看到内核错误（Kernel Panic）中搜索刚刚打印出的`spec`值
+要跟踪内核页面故障（Page-fault）的来源，请在文件`kernel/kernel.asm`中看到内核崩溃（Kernel Panic）中搜索刚刚打印出的`spec`值
 
 {% hint style="info" %}  
-写下引起内核错误的汇编指令。哪一个寄存器对应者变量`num`
+写下引起内核崩溃的汇编指令。哪一个寄存器对应者变量`num`
 {% endhint %}
 
 要在错误指令出检查处理器和内核的状态，请启动 gdb，并在错误`sepc`处设置断点，如下所示：
@@ -93,3 +93,20 @@ Continuing.
 
 Thread 3 hit Breakpoint 1, syscall () at kernel/syscall.c:247
 ```
+
+确认引起失误的汇编指令与上述汇编指令相同
+
+{% hint style="info" %}  
+为什么会崩溃？提示：查看 xv6 book 中的图3-3。地址 0 是否映射到内核地址空间？ `scause`中的值是否验证了这一点？（查看[RISC-V privileged instructions](https://pdos.csail.mit.edu/6.828/2023/labs/n//github.com/riscv/riscv-isa-manual/releases/download/Priv-v1.12/riscv-privileged-20211203.pdf)中关于`scause`的描述）
+{% endhint %}  
+
+请注意，`scause`是由上述的内核崩溃（kernel panic）打印的，但通常您需要查看其他信息来追踪导致错误的问题。例如，要找出内核崩溃时哪个用户进程正在运行，您可以打印出该进程的名称：
+```bash
+(gdb) p p->name
+```
+
+{% hint style="info" %}  
+内核崩溃时运行的二进制文件名称是什么？它的进程 ID （pid）是什么？
+{% endhint %}  
+
+使用 gdb 追踪 bug 的简要介绍就到此为止了；为了追踪内核错误，您值得花时间重新阅读[Using the GNU Debugger](https://pdos.csail.mit.edu/6.828/2019/lec/gdb_slides.pdf)，指导页面还有其他一些有用的调试技巧
