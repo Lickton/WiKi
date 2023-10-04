@@ -2,15 +2,15 @@
 
 ## 1 数据通信的理论基础
 
-- 奈奎丝特定理：最大数据速率$=2\rm{B}\log_2V$
-    - 单位：$bps$
-    - $\rm{2B}$：一个任意信号通过一个带宽为$\rm{B}$的低通滤波器，那么只要进行每秒$\rm{2B}$次确切采样，就可以完全重构出被过滤的信号
-    - $\rm{V}$：信号包含$\rm{V}$个离散等级
-- 香农定理：最大比特率=$\rm{B}log_2{(1+\rm{S/N})}$
-    - $\rm{B}$：带宽为$\rm{B}Hz$
-    - $\rm{S/N}$：信噪比
-        - $\rm{S}$：信号功率
-        - $\rm{N}$：噪声功率
+- 奈奎丝特定理：最大数据速率$$=2\rm{B}\log_2V$$
+    - 单位：$$bps$$
+    - $$\rm{2B}$$：一个任意信号通过一个带宽为$$\rm{B}$$的低通滤波器，那么只要进行每秒$$\rm{2B}$$次确切采样，就可以完全重构出被过滤的信号
+    - $$\rm{V}$$：信号包含$$\rm{V}$$个离散等级
+- 香农定理：最大比特率=$$\rm{B}log_2{(1+\rm{S/N})}$$
+    - $$\rm{B}$$：带宽为$$\rm{B}Hz$$
+    - $$\rm{S/N}$$：信噪比
+        - $$\rm{S}$$：信号功率
+        - $$\rm{N}$$：噪声功率
 
 ## 2 引导性传输介质
 
@@ -33,9 +33,9 @@
 ## 3 无线传输
 
 - 电磁频谱
-    - $\lambda f=c$
-        - 频率：$f$
-        - 波长：$\lambda$
+    - $$\lambda f=c$$
+        - 频率：$$f$$
+        - 波长：$$\lambda$$
     - 扩展频谱
         - 跳频扩频：发射器以每秒几百次的速率从一个跳到另一个频率
         - 直接序列扩频（**码分多址**）：使用了一个码片序列，并且将数据信号展开到一个很宽的频段上
@@ -43,7 +43,7 @@
         - 超宽带通信：发送一系列快速脉冲，随着通信信息而不断变换自己的位置
             - UWB：Ultra-WideBand
 - 无线电传输
-    - 路径损耗：无线电波的低频部分，在空间中传播时的信号能量至少以$1/r^2$衰减
+    - 路径损耗：无线电波的低频部分，在空间中传播时的信号能量至少以$$1/r^2$$衰减
 - 微波传输
 - 电磁频谱政策
 - 红外传输
@@ -61,7 +61,7 @@
         - 不归零编码（NRZ None-Return-to-Zero）：用正电压表示1，负电压表示0
             - 使用两个以上的信号级别，例如采用4个电压级别，可以使用单个符号一次携带2个bit，只要接收器收到的信号强度足够区分信号的4个级别
             - 符号率：信号改变的速率
-            - 比特率：符号率$\times$每个符号的比特数  
+            - 比特率：符号率$$\times$$每个符号的比特数  
             - 电话调制解调设备的应用中常见  
             ![](https://upload.wikimedia.org/wikipedia/commons/5/55/NRZcode.png)
         - 不归零逆转编码（NRZI None-Return-to-Zero Inverted）：信号跳变表示1，不变表示0
@@ -79,10 +79,10 @@
 
             |原始数据| |时钟|        | 曼彻斯特值|  
             |--------|-|----|--------|-----------|  
-            |    0   |=|  0 |$\oplus$|     0     |
-            |    0   |=|  1 |$\oplus$|     1     |
-            |    1   |=|  0 |$\oplus$|     1     |
-            |    1   |=|  1 |$\oplus$|     0     |
+            |    0   |=|  0 |$$\oplus$$|     0     |
+            |    0   |=|  1 |$$\oplus$$|     1     |
+            |    1   |=|  0 |$$\oplus$$|     1     |
+            |    1   |=|  1 |$$\oplus$$|     0     |
 
         - 差分曼彻斯特编码（Differential Manchester）：依赖前一个比特的状态
             - 差分曼彻斯特编码在 每个时钟周期的中间都有一次电平跳变，这个跳变做同步之用。 在每个时钟周期的起始处：跳变则说明该比特是0，不跳变则说明该比特是1
@@ -93,8 +93,8 @@
         - 幅移键控（ASK Amplitude Shift Keying）：通过两个不同的振幅分别表示0和1
         - 频移键控（FSK Frequency Shift Keying）：通过两个或更多的频率分别表示0和1
         - 相位键控（PSK Phase Shift Keying）：每个符号的周期内，系统把载波波形偏移一定程度
-            - 二进制相移键控（BPSK Binary Phase Shift Keying）：使用两个偏移，$0$ 和 $\pi$
-            - 正交相移键控（QPSK Quadrature Phase Shift Keying）：使用四个偏移，$\frac{\pi}{4}$、$\frac{3\pi}{4}$、$\frac{5\pi}{4}$和$\frac{7\pi}{4}$
+            - 二进制相移键控（BPSK Binary Phase Shift Keying）：使用两个偏移，$$0$$ 和 $$\pi$$
+            - 正交相移键控（QPSK Quadrature Phase Shift Keying）：使用四个偏移，$$\frac{\pi}{4}$$、$$\frac{3\pi}{4}$$、$$\frac{5\pi}{4}$$和$$\frac{7\pi}{4}$$
             ![](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Pi-by-O-QPSK_Gray_Coded.svg/330px-Pi-by-O-QPSK_Gray_Coded.svg.png)
 - 多路复用：信道被多个信号共享，使多个信号共享传输线路的解决方案
     - 频分复用（FDM Frequency Division Multiplexing）：利用通带传输的优势使多个用户共享一个信道。将频谱分为几个频段，每个用户完全拥有其中一个频段，不同频段之间间隔较大
@@ -109,9 +109,9 @@
         - 码片：每个比特被再细分为 m 个更短的时间间隔，每个时间间隔被称为码片。m 通常为 64 或 128
         - 码片序列：每个站被分配得到的唯一的 m 位码
         - 正交性：所有码片序列都两两正交
-            - $S\cdot T=\overline{S}\cdot\overline{T}=\frac{1}{m}\sum S_iT_i=0$
-            - $S\cdot S=\frac{1}{m}\sum S_iS_i=\frac{1}{m}\sum(\pm1)^2=1$
-            - $S\cdot \overline{S}=\frac{1}{m}\sum S_i\overline{S_i}=\frac{1}{m}\sum{(1\times-1)}=-1$
+            - $$S\cdot T=\overline{S}\cdot\overline{T}=\frac{1}{m}\sum S_iT_i=0$$
+            - $$S\cdot S=\frac{1}{m}\sum S_iS_i=\frac{1}{m}\sum(\pm1)^2=1$$
+            - $$S\cdot \overline{S}=\frac{1}{m}\sum S_i\overline{S_i}=\frac{1}{m}\sum{(1\times-1)}=-1$$
         - 若要发送1，站就发送它的码片序列，若要发送0，则发送其反码
         - 所有站的发送必须要是同步的
         - 除了蜂窝网络，CDMA 还被用于卫星通信和有线电视网络
